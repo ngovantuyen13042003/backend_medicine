@@ -1,0 +1,30 @@
+package nvt.medicine_be.api;
+
+import nvt.medicine_be.dto.CartDTO;
+import nvt.medicine_be.service.CartService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class CartAPI {
+    @Autowired
+    private CartService cartService;
+    @GetMapping("/api/cart/{idCart}")
+    public List<CartDTO> getCart(@PathVariable("idCart") Integer id){
+        return cartService.getCart(id);
+    }
+    @PostMapping("/api/cart")
+    public CartDTO addToCart(@RequestBody CartDTO dto) {
+        return cartService.addToCart(dto.getIdUser(), dto.getIdProduct());
+    }
+    @PutMapping("/api/cart")
+    public void updateQuantity(@RequestBody CartDTO dto) {
+        cartService.updateQuantity(dto.getQuantity(), dto.getIdUser(), dto.getIdProduct());
+    }
+    @DeleteMapping("/api/cart")
+    public void deleteCart(@RequestBody CartDTO dto) {
+        cartService.deleteCart(dto.getIds());
+    }
+}
