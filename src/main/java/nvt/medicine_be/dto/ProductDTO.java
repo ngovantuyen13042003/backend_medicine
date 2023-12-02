@@ -15,7 +15,7 @@ public class ProductDTO {
     private BigDecimal price;
     private String description;
     private float vote;
-    private String imgurl;
+    private String image;
     private short quantity;
     private int categoryId;
     private Integer[] ids;

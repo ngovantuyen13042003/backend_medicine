@@ -27,6 +27,7 @@ public class ProductServiceImpl implements ProductService {
     }
     @Autowired
     private CategoryRepository categoryRepository;
+
     @Override
     public List<ProductDTO> findAll(Integer id) {
         List<ProductDTO> productsDTO = new ArrayList<>();
