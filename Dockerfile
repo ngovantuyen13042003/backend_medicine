@@ -5,4 +5,4 @@ RUN mvn clean package -DskipTests
 FROM openjdk:17.0.2-jdk-slim
 COPY --from=build /target/Medicine_be-0.0.1-SNAPSHOT.jar medicine.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "demo.jar"]
+ENTRYPOINT ["java", "-jar", "medicine.jar"]
