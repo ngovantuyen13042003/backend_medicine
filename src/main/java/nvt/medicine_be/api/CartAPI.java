@@ -17,7 +17,7 @@ public class CartAPI {
     }
     @PostMapping("/api/cart")
     public CartDTO addToCart(@RequestBody CartDTO dto) {
-        return cartService.addToCart(dto.getIdUser(), dto.getIdProduct());
+        return cartService.addToCart(dto);
     }
     @PutMapping("/api/cart")
     public void updateQuantity(@RequestBody CartDTO dto) {

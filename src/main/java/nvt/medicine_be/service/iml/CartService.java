@@ -39,18 +39,20 @@ public class CartService implements nvt.medicine_be.service.CartService {
     }
     @Transactional
     @Override
-    public CartDTO addToCart(Integer idUser, Integer idProduct) {
-        Cart cartOld = cartRepository.findByIdUserAndIdProduct(idUser, idProduct);
+    public CartDTO addToCart(CartDTO cartDTO) {
+        Cart cartOld = cartRepository.findByIdUserAndIdProduct(cartDTO.getIdUser(), cartDTO.getIdProduct());
         if(cartOld!=null) {
             cartOld.setQuantity((short)(cartOld.getQuantity()+1));
             cartOld.setPrice(cartOld.getPrice().add(cartOld.getPrice()));
             return modelMapper.map(cartRepository.save(cartOld), CartDTO.class);
         }else {
             Cart cart =  new Cart();
-            Product product = productRepository.findById(idProduct).get();
-            cart.setIdUser(idUser);
-            cart.setIdProduct(idProduct);
+            Product product = productRepository.findById(cartDTO.getIdProduct()).get();
+            cart.setIdUser(cart.getIdUser());
+            cart.setIdProduct(cart.getIdProduct());
             cart.setQuantity((short)1);
+            cart.setImgurl(product.getImage());
+            cart.setTotalPrice(product.getPrice() );
             cart.setName(product.getName());
             cart.setPrice(product.getPrice());
             cartRepository.save(cart);

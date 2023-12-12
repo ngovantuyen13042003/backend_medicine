@@ -32,5 +32,5 @@ public class Cart {
     @Column
     private String imgurl;
     @Column
-    private Integer totalPrice;
+    private BigDecimal totalPrice;
 }
