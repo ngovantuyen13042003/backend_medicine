@@ -29,4 +29,8 @@ public class Cart {
     private Integer idProduct;
     @Column
     private Integer idUser;
+    @Column
+    private String imgurl;
+    @Column
+    private Integer totalPrice;
 }
