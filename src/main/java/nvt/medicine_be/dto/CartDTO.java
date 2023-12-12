@@ -13,7 +13,6 @@ public class CartDTO {
     private Integer price;
     private short quantity;
     private Integer totalPrice;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss")
     private String imgurl;
     private Integer[] ids;
 }
