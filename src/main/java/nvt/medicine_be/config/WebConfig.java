@@ -25,7 +25,6 @@ public class WebConfig {
                         config.setAllowedOrigins(Collections.singletonList("*"));
                         config.setAllowedMethods(Arrays.asList("*"));
                         config.setAllowedHeaders(Arrays.asList("*"));
-                        config.setAllowCredentials(true);
                         config.setMaxAge(3600L);
                         return config;
                     }
