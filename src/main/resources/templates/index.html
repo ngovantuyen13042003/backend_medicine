@@ -269,8 +269,8 @@
                                 <p id="error-update-price" class="text-danger text_error"></p>
                             </div>
                             <div class="col-6">
-                                <label for="update_discount" name="price" class="form-label">Giá bán</label>
-                                <input type="number" class="form-control" id="update_discount" />
+                                <label for="update_discount"  class="form-label">Giá bán</label>
+                                <input type="number" class="form-control" id="update_discount" name="price"/>
                                 <p id="error-update-discount" class="text-danger text_error"></p>
                             </div>
                         </div>
@@ -545,7 +545,7 @@
                 $("#update_title").val(product.name);
                 $("#update_price").val(product.price);
                 $("#update_image_raw").attr("src", `${product.image}`);
-                $("#update_discount").val(product.price * 0.7);
+                $("#update_discount").val(product.price);
                 $("#update_quantity").val(product.quantity);
                 $("#update_description").val(product.description);
             },
@@ -558,6 +558,7 @@
             console.log($("#form-update-product"))
             formData.append("categoryId", 1);
             formData.append("id", idUpdate);
+            // formData.append("price", $("#price").val())
             $.ajax({
                 url: 'https://medicine-w344.onrender.com/api/product',
                 type: 'POST',
