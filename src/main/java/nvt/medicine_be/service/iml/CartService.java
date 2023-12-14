@@ -48,8 +48,8 @@ public class CartService implements nvt.medicine_be.service.CartService {
         }else {
             Cart cart =  new Cart();
             Product product = productRepository.findById(cartDTO.getIdProduct()).get();
-            cart.setIdUser(cart.getIdUser());
-            cart.setIdProduct(cart.getIdProduct());
+            cart.setIdUser(cartDTO.getIdUser());
+            cart.setIdProduct(cartDTO.getIdProduct());
             cart.setQuantity((short)1);
             cart.setImgurl(product.getImage());
             cart.setTotalPrice(product.getPrice() );
@@ -74,5 +74,10 @@ public class CartService implements nvt.medicine_be.service.CartService {
         for (int i=0;i<ids.length;i++) {
             cartRepository.deleteById(ids[i]);
         }
+    }
+
+    public void deleteCart(Integer id) {
+        // TODO Auto-generated method stub
+        cartRepository.deleteById(id);
     }
 }

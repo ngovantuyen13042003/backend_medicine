@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+          integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Document</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            background-color: #0074cc; /* Màu xanh dương chủ đạo */
+            color: #fff; /* Màu chữ trắng */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 50px; /* Điều chỉnh kích thước logo theo nhu cầu */
+        }
+
+        #title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #search-bar {
+            flex: 1;
+            position: relative;
+            margin: 0 20px;
+        }
+
+
+        #search-input {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            /* border-radius: 25px; */
+            background-color: rgba(255, 255, 255, 0.8); /* Màu nền với độ trong suốt */
+            font-size: 16px;
+            color: #333;
+            padding-right: 40px; /* Để biểu tượng tìm kiếm không bị che phủ */
+        }
+
+        #search-input::placeholder {
+            color: #888;
+        }
+
+        #login-btn {
+            background-color: #fff; /* Màu nền nút đăng nhập */
+            color: #0074cc; /* Màu chữ nút đăng nhập */
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        footer {
+            background-color: #0074cc; /* Màu xanh dương cho phần footer */
+            color: #fff; /* Màu chữ trắng */
+            padding: 20px;
+            text-align: center;
+            margin-top: auto; /* Tạo khoảng trống giữa nội dung chính và footer */
+        }
+    </style>
+</head>
+<body>
+<!-- header -->
+<header>
+    <img src="https://images.careerbuilder.vn/employer_folders/lot7/236627/113148logomedigo.jpg" alt="MEDIGO Logo" id="logo">
+    <div id="title">MEDIGO</div>
+    <div id="search-bar">
+        <!-- Thanh tìm kiếm -->
+        <input type="text" id="search-input" placeholder="Tìm kiếm...">
+    </div>
+    <div>
+        <p id="role"></p>
+    </div>
+</header>
+<!-- Table sản phẩm -->
+<div class="container-fluid " style="margin-top: 25px;">
+    <div class="row">
+        <div class="col-2 d-flex orange-bg p-0">
+            <ul class="list-group list-group-flush orange-bg">
+                <li class="list-group-item orange-bg p-4 fs-5">BẢNG ĐIỀU KHIỂN</li>
+                <li class="list-group-item orange-bg"><a class="page-link" href=""><i
+                        class="fa-brands fa-product-hunt"></i> Quản lý sản phẩm</a></li>
+                <li class="list-group-item orange-bg"><a class="page-link" href="product_data.html"><i
+                        class="fa-solid fa-bookmark"></i> Thống kê sản phẩm</a></li>
+                <li class="list-group-item orange-bg"><a class="page-link" href=""><i class="fa-solid fa-users"></i>
+                    Quản lý khách hàng</a></li>
+                <li class="list-group-item orange-bg"><a class="page-link" href="order_data.html"><i
+                        class="fa-solid fa-chart-simple"></i> Thống kê đơn hàng</a></li>
+                <li class="list-group-item orange-bg"><a class="page-link" href=""><i
+                        class="fa-regular fa-circle-question"></i> Hỏi đáp</a></li>
+            </ul>
+        </div>
+        <div class="col-10">
+            <div class="container-fluid">
+                <h2>Danh sách sản phẩm</h2>
+                <div class="row d-flex justify-content-end">
+                    <div class="col-2">
+                        <input id="title_search" type="text" class="form-control" placeholder="Tìm theo tên">
+                    </div>
+
+                    <div class="col-1">
+                        <button class="btn btn-secondary" onclick="displayProducts()"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
+                    </div>
+                    <div class="col-2 ">
+                        <button class="btn btn-success" id="btn_add_product" data-bs-toggle="modal"
+                                data-bs-target="#modal_add_product">Thêm mới</button>
+                    </div>
+                </div>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Tên</th>
+                        <th scope="col">Giá bán</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Hình ảnh</th>
+                        <th scope="col">Danh mục</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productList_content">
+                    <tr>
+                        <th scope="row">1</th>
+                        <td>Lê Văn Sỹ</td>
+                        <td>Nam</td>
+                        <td>1500000</td>
+                        <td>0942896469</td>
+                        <td>Sale-marketing</td>
+                        <td>
+                            <button type="button" class="btn btn-info">Chỉnh sửa</button>
+                            <button type="button" class="btn btn-warning">Chi tiết</button>
+                            <button type="button" class="btn btn-danger">Xóa</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div id="pagination_admin">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal xóa -->
+<div class="modal fade" id="modal_delete_product" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="staticBackdropLabel">Xóa sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Bạn có muốn xóa: <span id="nameProduct" class="text-danger"></span>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-primary" onclick="deleteProduct()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container top-0 end-0 p-3 mt-5">
+        <div class="toast toast_delete fade" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
+                    <rect width="100%" height="100%" fill="#007aff"></rect>
+                </svg>
+
+                <strong class="me-auto">Thông báo</strong>
+                <small class="text-muted">Vừa mới</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">Xóa thành công</div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal chi tiết -->
+<div class="modal fade" id="modal_detail_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Chi tiết sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <form id="form-update-employee">  -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <img id="image_detail" src="" width="100%" height="100%">
+                    </div>
+                    <div class="col-2">
+                        <p>Mã:</p>
+                        <p>Tên:</p>
+                        <p>Giá nhập:</p>
+                        <p>Giá bán:</p>
+                        <p>số lượng:</p>
+                        <p>danh mục:</p>
+                        <p>Mô tả:</p>
+                    </div>
+                    <div class="col-4">
+                        <p id="id_detail"></p>
+                        <p id="title_detail"></p>
+                        <p id="price_detail"></p>
+                        <p id="discount_detail"></p>
+                        <p id="quantity_detail"></p>
+                        <p id="category_detail"></p>
+                        <p id="description_detail"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+            </div>
+            <!-- </form> -->
+        </div>
+    </div>
+</div>
+
+<!-- Modal chỉnh sửa và toast chỉnh sửa -->
+<div class="modal fade" id="modal_update_product" tabindex="-1" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog  modal-lg modal-fullscreen-xl-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa sản phẩm</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- <form id="form-update-employee">  -->
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-6">
+                        <img src="" alt="" id="update_image_raw" width="100%" height="100%">
+                    </div>
+                    <div class="col-6">
+                        <div class="mb-3">
+                            <label for="update_title" class="form-label">Tên sản phẩm</label>
+                            <input type="text" class="form-control" id="update_title" />
+                            <p id="error-update-title" class="text-danger text_error"></p>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="update_price" class="form-label">Giá nhập</label>
+                                <input type="number" class="form-control" id="update_price" />
+                                <p id="error-update-price" class="text-danger text_error"></p>
+                            </div>
+                            <div class="col-6">
+                                <label for="update_discount" class="form-label">Giá bán</label>
+                                <input type="number" class="form-control" id="update_discount" />
+                                <p id="error-update-discount" class="text-danger text_error"></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <label for="update_quantity" class="form-label">Số lượng</label>
+                                <input type="number" class="form-control" id="update_quantity" />
+                                <p id="error-update-quantity" class="text-danger text_error"></p>
+                            </div>
+                            <div class="col-6">
+                                <div class="" id="select_option_update">
+                                </div>
+                                <p id="error-update-categoryid" class="text-danger text_error"></p>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="update_image" class="form-label">Hình ảnh thay thế</label>
+                            <input type="file" class="form-control" id="update_image" />
+                            <p id="error-update-image" class="text-danger text_error"></p>
+                        </div>
+                        <div class="mb-3">
+                            <label for="update_description" class="form-label">Mô tả</label>
+                            <textarea class="form-control" id="update_description" rows="3"></textarea>
+                            <p id="error-update-description" class="text-danger text_error"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                <button type="submit" onclick="updateProduct()" class="btn btn-primary">Lưu</button>
+            </div>
+            <!-- </form> -->
+        </div>
+    </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container top-0 end-0 p-3 mt-5">
+        <div class="toast toast_update fade" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
+                    <rect width="100%" height="100%" fill="#007aff"></rect>
+                </svg>
+
+                <strong class="me-auto">Thông báo</strong>
+                <small class="text-muted">Vừa mới</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">Chỉnh sửa thành công</div>
+        </div>
+    </div>
+</div>
+<!-- Modal thêm mới và toast thành công -->
+<div class="modal fade" id="modal_add_product" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Thêm mới Sản phẩm </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form id="form-add-product">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="add_name" class="form-label">Tên sản phẩm <span
+                                class="text-danger text_error">(*)</span></label>
+                        <input type="text" class="form-control" id="add_name" />
+                        <p id="error-add-title" class="text-danger text_error"></p>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="add_price" class="form-label">Giá nhập <span
+                                    class="text-danger text_error">(*)</span></label>
+                            <input type="number" placeholder="VNĐ" class="form-control" id="add_price" />
+                            <p id="error-add-price" class="text-danger text_error"></p>
+                        </div>
+                        <div class="col-6">
+                            <label for="add_discount" class="form-label">Giá bán <span
+                                    class="text-danger text_error">(*)</span></label>
+                            <input type="number" placeholder="VNĐ" class="form-control" id="add_discount" />
+                            <p id="error-add-discount" class="text-danger text_error "></p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <label for="add_quantity" class="form-label">Số lượng <span
+                                    class="text-danger text_error">(*)</span></label>
+                            <input type="number" class="form-control" id="add_quantity" />
+                            <p id="error-add-quantity" class="text-danger text_error"></p>
+                        </div>
+
+                        <div class="col-6">
+                            <div id="select_option_create">
+                                <label class="form-label">Chọn danh mục <span class="text-danger text_error">(*)</span></label>
+                                <select name="classIdSelect" id="classIdSelect"  class="form-select">
+                                    <option value="">Chọn thuốc</option>
+                                    <option value="1">Thuốc tây</option>
+                                    <option value="2">Dược liệu</option>
+                                    <option value="3">Khẩu trang</option>
+                                </select>
+                            </div>
+                            <p id="error-add-categoryid" class="text-danger text_error"></p>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_image" class="form-label">Hình ảnh <span
+                                class="text-danger text_error">(*)</span></label>
+                        <input type="file" class="form-control" id="add_image" />
+                        <p id="error-add-image" class="text-danger text_error"></p>
+                    </div>
+                    <div class="mb-3">
+                        <label for="add_description" class="form-label">Mô tả <span
+                                class="text-danger text_error">(ngắn gọn)</span></label>
+                        <textarea class="form-control" id="add_description" rows="4"></textarea>
+                        <p id="error-add-description" class="text-danger text_error"></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="reset" id="btn_add_cancel" class="btn btn-secondary btn-danger"
+                            data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-primary">Lưu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div aria-live="polite" aria-atomic="true" class="position-relative">
+    <div class="toast-container top-0 end-0 p-3 mt-5">
+        <div class="toast toast_create fade" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <svg class="bd-placeholder-img rounded me-2" width="20" height="20"
+                     xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice"
+                     focusable="false">
+                    <rect width="100%" height="100%" fill="#007aff"></rect>
+                </svg>
+
+                <strong class="me-auto">Thông báo</strong>
+                <small class="text-muted">Vừa mới</small>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">Thêm mới thành công</div>
+        </div>
+    </div>
+</div>
+<footer>
+    © 2023 MEDIGO. All rights reserved.
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="admin/list.js"></script>
+<script src="admin/delete.js"></script>
+<script src="admin/detail.js"></script>
+<script src="admin/update.js"></script>
+<script src="admin/create.js"></script>
+<script src="admin/login.js"></script>
+<script>
+    $(document).ready(function () {
+        displayProducts();
+        displayRolelist();
+    });
+</script>
+</body>
+
+</html>

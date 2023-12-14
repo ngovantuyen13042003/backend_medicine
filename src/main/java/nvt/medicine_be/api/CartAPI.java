@@ -11,6 +11,7 @@ import java.util.List;
 public class CartAPI {
     @Autowired
     private CartService cartService;
+
     @GetMapping("/api/cart/{idCart}")
     public List<CartDTO> getCart(@PathVariable("idCart") Integer id){
         return cartService.getCart(id);
@@ -26,5 +27,9 @@ public class CartAPI {
     @DeleteMapping("/api/cart")
     public void deleteCart(@RequestBody CartDTO dto) {
         cartService.deleteCart(dto.getIds());
+    }
+    @DeleteMapping("/api/cart/{idCart}")
+    public void deleteOneCart(@PathVariable("idCart") Integer idCart) {
+        cartService.deleteCart(idCart);
     }
 }
