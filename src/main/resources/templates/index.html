@@ -420,17 +420,229 @@
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!--<script src="./admin/list.js"></script>-->
-<script src="./admin/delete.js"></script>
-<script src="./admin/detail.js"></script>
-<script src="./admin/update.js"></script>
-<script src="./admin/create.js"></script>
-<script src="./admin/login.js"></script>
+<!--<script src="./admin/delete.js"></script>-->
+<!--<script src="./admin/detail.js"></script>-->
+<!--<script src="./admin/update.js"></script>-->
+<!--<script src="./admin/create.js"></script>-->
+<!--<script src="./admin/login.js"></script>-->
 <script>
     $(document).ready(function () {
         displayProducts();
         displayRolelist();
     });
 </script >
+
+<script>
+    $("#form-add-product").submit(function (event) {
+        event.preventDefault(); // Không bị load lại trang
+        $('[id^=error-add-]').text("");
+        let title = $("#add_name").val();
+        let price = $("#add_price").val();
+        let discount = $("#add_discount").val();
+        let quantity = $("#add_quantity").val();
+        let image = "https://rohto.com.vn/images/2023/new-vrohto-20230612.jpg";
+        let description = $("#add_description").val();
+        let categoryid = $("#classIdSelect").val();
+        const product = {
+            name: title,
+            price: price,
+            quantity: quantity,
+            image: image,
+            description: description,
+            categoryId: categoryid
+        }
+        debugger
+        $.ajax({
+            headers: {
+                Accept: 'application/json', // Đặt kiểu dữ liệu được chấp nhận từ server là JSON.
+                'Content-Type': 'application/json', // Đặt kiểu dữ liệu được gửi lên server là JSON.
+            },
+            type: 'POST',
+            data: JSON.stringify(product),
+            url: `https://medicine-w344.onrender.com/api/product`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function () {
+                debugger
+                $("#modal_add_product").modal("hide");
+                displayProducts();
+                $("input").val('');
+                $(".toast_create").toast("show");
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                console.error(status);
+                console.error(error);
+                debugger
+            }
+        });
+    })
+
+</script>
+
+<script>
+    $("#form-login").submit(function (event) {
+        event.preventDefault();
+        const usernameOrEmail = $("#username").val();
+        const password = $("#password").val();
+        // Add vào list
+        const user = {
+            email: usernameOrEmail,
+            password: password
+        };
+
+        $.ajax({
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            type: 'POST', // Sử dụng phương thức POST để gửi dữ liệu lên server.
+            data: JSON.stringify(user), // Chuyển đổi đối tượng 'user' thành chuỗi JSON để gửi lên server.
+            url: `https://medicine-w344.onrender.com/api/user/login`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                debugger
+                // if (data.id == 1) {
+                localStorage.setItem('roleList', data.name);
+
+                window.location.href = "index.html";
+                // } else {
+                //     window.location.href = "acessdined";
+                // }
+            },
+            error: function (error) {
+                if(error.status == 500) {
+                    $('#error-message').text('Thông tin đăng nhập chưa chính xác');
+                } else {
+                    $('#error-message').text('Hệ thống đang gặp lỗi, xin thử lại sau!');
+                }
+            }
+        });
+    });
+
+    function displayRolelist() {
+        if (localStorage.getItem("roleList")) {
+            $("#role").text(localStorage.getItem("roleList"));
+            debugger
+        }
+    }
+</script>
+
+<script>
+    function viewDetail(id) {
+        $.ajax({
+            type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
+            url: `https://medicine-w344.onrender.com/api/product?id=${id}`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                let product = data[0];
+                debugger
+                $("#image_detail").attr("src", `${product.image}`);
+                $("#id_detail").text(product.id);
+                $("#title_detail").text(product.name);
+                $("#price_detail").text(product.price + " VNĐ");
+                $("#discount_detail").text(product.price * 0.3 + " VNĐ");
+                $("#quantity_detail").text(product.quantity + " cái");
+                $("#category_detail").text("Thuốc tây");
+                $("#description_detail").text(product.description);
+            },
+            error: function (error) {
+            }
+        });
+    }
+</script>
+
+<script>
+    let idUpdate;
+    function comfirmUpdateProduct(id) {
+        idUpdate = id;
+        debugger
+        $('[id^=error-update-]').text("");
+        debugger
+        $.ajax({
+            type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
+            url: `https://medicine-w344.onrender.com/api/product?id=${id}`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                const product = data[0];
+                debugger
+                $("#update_title").val(product.name);
+                $("#update_price").val(product.price);
+                $("#update_image_raw").attr("src", `${product.image}`);
+                $("#update_discount").val(product.price * 0.7);
+                $("#update_quantity").val(product.quantity);
+                $("#update_description").val(product.description);
+            },
+            error: function (error) {
+            }
+        });
+    }
+
+    function updateProduct() {
+        let name = $("#update_title").val();
+        let price = $("#update_price").val();
+        let discount = $("#update_discount").val();
+        let quantity = $("#update_quantity").val();
+        let image = "https://giadinh.mediacdn.vn/296230595582509056/2023/3/15/bao-cao-su-5--1678854218558912776621.jpg";
+        let description = $("#update_description").val();
+        debugger
+        const product = {
+            id: idUpdate,
+            name: name,
+            price: price,
+            quantity: quantity,
+            image: image,
+            description: description,
+            categoryId: "1"
+        }
+        $.ajax({
+            headers: {
+                Accept: 'application/json', // Đặt kiểu dữ liệu được chấp nhận từ server là JSON.
+                'Content-Type': 'application/json', // Đặt kiểu dữ liệu được gửi lên server là JSON.
+            },
+            type: 'PUT',
+            data: JSON.stringify(product),
+            url: 'https://medicine-w344.onrender.com/api/product',
+            success: function () {
+                debugger
+                $("#modal_update_product").modal("hide");
+                displayProducts();
+                $("input").val("");
+                $(".toast_update").toast("show");
+            },
+            error: function (error) {
+            }
+        });
+    }
+</script>
+
+<script>
+    let idDelete;
+    function comfirmDeleteProduct(id, name) {
+        idDelete = id;
+        $("#nameProduct").text(name);
+    }
+
+    function deleteProduct() {
+        let product = {
+            id: idDelete,
+            ids: [idDelete]
+        }
+        $.ajax({
+            headers: {
+                Accept: 'application/json', // Đặt kiểu dữ liệu được chấp nhận từ server là JSON.
+                'Content-Type': 'application/json', // Đặt kiểu dữ liệu được gửi lên server là JSON.
+            },
+            type: 'DELETE',
+            data: JSON.stringify(product),
+            url: 'https://medicine-w344.onrender.com/api/product',
+            success: function () {
+                $("#modal_delete_product").modal("hide");
+                displayProducts();
+                $(".toast_delete").toast("show");
+            },
+            error: function (error) {
+                // Hàm này được gọi khi có lỗi trong quá trình gửi yêu cầu hoặc nhận phản hồi.
+                // Biến 'error' chứa thông tin về lỗi, bạn có thể xử lý lỗi ở đây hoặc thông báo cho người dùng.
+            }
+        });
+    }
+</script>
 
 <script>
     function displayProducts() {
