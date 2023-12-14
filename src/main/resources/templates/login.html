@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEDIGO</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Thiết lập chiều cao tối thiểu bằng chiều cao của viewport */
+        }
+
+        header {
+            background-color: #0074cc; /* Màu xanh dương chủ đạo */
+            color: #fff; /* Màu chữ trắng */
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #logo {
+            width: 50px; /* Điều chỉnh kích thước logo theo nhu cầu */
+        }
+
+        #title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        #search-bar {
+            flex: 1;
+            position: relative;
+            margin: 0 20px;
+        }
+
+        #search-input {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            background-color: rgba(255, 255, 255, 0.8); /* Màu nền với độ trong suốt */
+            font-size: 16px;
+            color: #333;
+            padding-right: 40px; /* Để biểu tượng tìm kiếm không bị che phủ */
+        }
+
+        #search-input::placeholder {
+            color: #888;
+        }
+
+        #search-icon {
+            position: absolute;
+            top: 50%;
+            right: 15px;
+            transform: translateY(-50%);
+            width: 20px;
+        }
+
+        #login-btn {
+            background-color: #fff; /* Màu nền nút đăng nhập */
+            color: #0074cc; /* Màu chữ nút đăng nhập */
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        main {
+            flex: 1; /* Để nội dung chính chiếm phần còn lại của chiều cao */
+            background-color: #f5f5f5; /* Màu nền cho phần nội dung chính */
+            padding: 20px;
+        }
+
+        footer {
+            background-color: #0074cc; /* Màu xanh dương cho phần footer */
+            color: #fff; /* Màu chữ trắng */
+            padding: 20px;
+            text-align: center;
+            margin-top: auto; /* Tạo khoảng trống giữa nội dung chính và footer */
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #0074cc; /* Màu nền cho form đăng nhập */
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            color: #fff;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        form input {
+            width: 95%;
+            padding: 10px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 5px;
+        }
+
+        form button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #fff;
+            color: #0074cc;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <img src="https://images.careerbuilder.vn/employer_folders/lot7/236627/113148logomedigo.jpg" alt="MEDIGO Logo" id="logo">
+    <div id="title">MEDIGO</div>
+    <div id="search-bar">
+        <!-- Thanh tìm kiếm -->
+        <input type="text" id="search-input" placeholder="Tìm kiếm...">
+    </div>
+    <button id="login-btn">Đăng nhập</button>
+</header>
+
+<main>
+    <!-- Form đăng nhập -->
+    <form id="form-login">
+        <label for="username">Tên người dùng:</label>
+        <input type="text" id="username" name="username">
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password">
+
+        <button type="submit">Đăng nhập</button>
+    </form>
+</main>
+
+<footer>
+    © 2023 MEDIGO. All rights reserved.
+</footer>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="admin/login.js"></script>
+</body>
+</html>
