@@ -7,6 +7,7 @@ import nvt.medicine_be.model.Category;
 import nvt.medicine_be.model.Product;
 import nvt.medicine_be.repository.CategoryRepository;
 import nvt.medicine_be.repository.ProductRepository;
+import nvt.medicine_be.service.ICloudinaryService;
 import nvt.medicine_be.service.ProductService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ import java.util.List;
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ICloudinaryService cloudinaryService;
+
     private final ModelMapper modelMapper;
     // Default constructor for Spring to instantiate the service
     public ProductServiceImpl() {
@@ -57,6 +62,16 @@ public class ProductServiceImpl implements ProductService {
             newProduct.setCategory(category);
             return modelMapper.map(productRepository.save(newProduct), ProductDTO.class);
         }
+    }
+
+
+    @Override
+    public ProductDTO SaveWithImg(ProductDTO dto) {
+        Product newP = modelMapper.map(dto, Product.class);
+        String urlImg = cloudinaryService.upload(dto.getFileImg(), "images_medicine");
+        newP.setImage(urlImg);
+        Product savedProduct = productRepository.save(newP);
+        return modelMapper.map(savedProduct, ProductDTO.class);
     }
 
     @Override

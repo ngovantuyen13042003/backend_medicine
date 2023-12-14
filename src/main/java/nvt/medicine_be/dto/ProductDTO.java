@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -19,4 +21,5 @@ public class ProductDTO {
     private short quantity;
     private int categoryId;
     private Integer[] ids;
+    private MultipartFile fileImg;
 }

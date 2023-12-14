@@ -9,4 +9,5 @@ public interface ProductService {
     ProductDTO Save(ProductDTO product);
     void delete(Integer[] ids);
     List<ProductDTO> findAllByCategory(Integer id);
+    ProductDTO SaveWithImg(ProductDTO dto);
 }

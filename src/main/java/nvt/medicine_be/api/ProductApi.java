@@ -11,13 +11,18 @@ import java.util.List;
 public class ProductApi {
     @Autowired
     private ProductService productService;
+//    @PostMapping("/api/product")
+//    public ProductDTO createProduct(@RequestBody ProductDTO dto) {
+//        ProductDTO savedProduct = productService.SaveWithImg(dto);
+//        return savedProduct;
+//    }
     @PostMapping("/api/product")
-    public ProductDTO createProduct(@RequestBody ProductDTO dto) {
-        ProductDTO savedProduct = productService.Save(dto);
+    public ProductDTO createProduct(@ModelAttribute ProductDTO dto) {
+        ProductDTO savedProduct = productService.SaveWithImg(dto);
         return savedProduct;
     }
     @PutMapping("/api/product")
-    public ProductDTO updateProduct(@RequestBody ProductDTO dto) {
+    public ProductDTO updateProduct(@ModelAttribute ProductDTO dto) {
         ProductDTO updatedProduct = productService.Save(dto);
         return updatedProduct;
     }

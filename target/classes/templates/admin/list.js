@@ -5,6 +5,7 @@ function displayProducts() {
         type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
         url: "https://medicine-w344.onrender.com/api/product", // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
         success: function (data) {
+            console.log(data)
             let products = data;
             let tableContent = ``;
             debugger

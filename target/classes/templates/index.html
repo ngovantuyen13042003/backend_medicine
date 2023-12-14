@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 
 <head>
     <meta charset="UTF-8">
@@ -248,7 +248,9 @@
                 <h1 class="modal-title fs-5" id="exampleModalLabel">Chỉnh sửa sản phẩm</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <!-- <form id="form-update-employee">  -->
+             <form id="form-update-product">
+
+<!--                 <input type="hidden" name="id" />-->
             <div class="modal-body">
                 <div class="row">
                     <div class="col-6">
@@ -257,25 +259,25 @@
                     <div class="col-6">
                         <div class="mb-3">
                             <label for="update_title" class="form-label">Tên sản phẩm</label>
-                            <input type="text" class="form-control" id="update_title" />
+                            <input type="text" name="name" class="form-control" id="update_title" />
                             <p id="error-update-title" class="text-danger text_error"></p>
                         </div>
                         <div class="row">
                             <div class="col-6">
                                 <label for="update_price" class="form-label">Giá nhập</label>
-                                <input type="number" class="form-control" id="update_price" />
+                                <input type="number"  class="form-control" id="update_price" />
                                 <p id="error-update-price" class="text-danger text_error"></p>
                             </div>
                             <div class="col-6">
-                                <label for="update_discount" class="form-label">Giá bán</label>
+                                <label for="update_discount" name="price" class="form-label">Giá bán</label>
                                 <input type="number" class="form-control" id="update_discount" />
                                 <p id="error-update-discount" class="text-danger text_error"></p>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-6">
-                                <label for="update_quantity" class="form-label">Số lượng</label>
-                                <input type="number" class="form-control" id="update_quantity" />
+                                <label for="update_quantity"  class="form-label">Số lượng</label>
+                                <input type="number" name="quantity" class="form-control" id="update_quantity" />
                                 <p id="error-update-quantity" class="text-danger text_error"></p>
                             </div>
                             <div class="col-6">
@@ -286,12 +288,12 @@
                         </div>
                         <div class="mb-3">
                             <label for="update_image" class="form-label">Hình ảnh thay thế</label>
-                            <input type="file" class="form-control" id="update_image" />
+                            <input type="file" name="fileImg" class="form-control" id="update_image" />
                             <p id="error-update-image" class="text-danger text_error"></p>
                         </div>
                         <div class="mb-3">
                             <label for="update_description" class="form-label">Mô tả</label>
-                            <textarea class="form-control" id="update_description" rows="3"></textarea>
+                            <textarea class="form-control" name="description" id="update_description" rows="3"></textarea>
                             <p id="error-update-description" class="text-danger text_error"></p>
                         </div>
                     </div>
@@ -299,9 +301,9 @@
             </div>
             <div class="modal-footer">
                 <button type="reset" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
-                <button type="submit" onclick="updateProduct()" class="btn btn-primary">Lưu</button>
+                <button type="button" id="btn-update"  class="btn btn-primary">Lưu</button>
             </div>
-            <!-- </form> -->
+             </form>
         </div>
     </div>
 </div>
@@ -336,20 +338,20 @@
                     <div class="mb-3">
                         <label for="add_name" class="form-label">Tên sản phẩm <span
                                 class="text-danger text_error">(*)</span></label>
-                        <input type="text" class="form-control" id="add_name" />
+                        <input type="text" name="name" class="form-control" id="add_name" />
                         <p id="error-add-title" class="text-danger text_error"></p>
                     </div>
                     <div class="row">
                         <div class="col-6">
                             <label for="add_price" class="form-label">Giá nhập <span
                                     class="text-danger text_error">(*)</span></label>
-                            <input type="number" placeholder="VNĐ" class="form-control" id="add_price" />
+                            <input type="number"  placeholder="VNĐ" class="form-control" id="add_price" />
                             <p id="error-add-price" class="text-danger text_error"></p>
                         </div>
                         <div class="col-6">
                             <label for="add_discount" class="form-label">Giá bán <span
                                     class="text-danger text_error">(*)</span></label>
-                            <input type="number" placeholder="VNĐ" class="form-control" id="add_discount" />
+                            <input type="number" name="price" placeholder="VNĐ" class="form-control" id="add_discount" />
                             <p id="error-add-discount" class="text-danger text_error "></p>
                         </div>
                     </div>
@@ -357,7 +359,7 @@
                         <div class="col-6">
                             <label for="add_quantity" class="form-label">Số lượng <span
                                     class="text-danger text_error">(*)</span></label>
-                            <input type="number" class="form-control" id="add_quantity" />
+                            <input type="number" name="quantity" class="form-control" id="add_quantity" />
                             <p id="error-add-quantity" class="text-danger text_error"></p>
                         </div>
 
@@ -375,22 +377,22 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="add_image" class="form-label">Hình ảnh <span
+                        <label for="add_image"  class="form-label">Hình ảnh <span
                                 class="text-danger text_error">(*)</span></label>
-                        <input type="file" class="form-control" id="add_image" />
+                        <input type="file" name="fileImg" class="form-control" id="add_image" />
                         <p id="error-add-image" class="text-danger text_error"></p>
                     </div>
                     <div class="mb-3">
                         <label for="add_description" class="form-label">Mô tả <span
                                 class="text-danger text_error">(ngắn gọn)</span></label>
-                        <textarea class="form-control" id="add_description" rows="4"></textarea>
+                        <textarea class="form-control" name="description" id="add_description" rows="4"></textarea>
                         <p id="error-add-description" class="text-danger text_error"></p>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="reset" id="btn_add_cancel" class="btn btn-secondary btn-danger"
                             data-bs-dismiss="modal">Hủy</button>
-                    <button type="submit" class="btn btn-primary">Lưu</button>
+                    <button type="button" class="btn btn-primary" id="btn_save">Lưu</button>
                 </div>
             </form>
         </div>
@@ -419,18 +421,303 @@
 </footer>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="admin/list.js"></script>
-<script src="admin/delete.js"></script>
-<script src="admin/detail.js"></script>
-<script src="admin/update.js"></script>
-<script src="admin/create.js"></script>
-<script src="admin/login.js"></script>
+<!--<script src="./admin/list.js"></script>-->
+<!--<script src="./admin/delete.js"></script>-->
+<!--<script src="./admin/detail.js"></script>-->
+<!--<script src="./admin/update.js"></script>-->
+<!--<script src="./admin/create.js"></script>-->
+<!--<script src="./admin/login.js"></script>-->
 <script>
     $(document).ready(function () {
         displayProducts();
         displayRolelist();
     });
+</script >
+
+<script>
+    $("#btn_save").click(function (e) {
+        let formData = new FormData($("#form-add-product")[0]);
+        console.log($("#form-add-product"))
+        formData.append("categoryId", $("#classIdSelect").val());
+        $.ajax({
+            url: 'http://localhost:8080/api/product',
+            type: 'POST',
+            data: formData,
+            processData: false,  // Important: Don't process the data
+            contentType: false,  // Important: Let jQuery handle the content type
+            success: function(result){
+                window.location.href = "/home";
+            },
+
+            error: function(error){
+                console.log("failed");
+            }
+        });
+
+    })
+
+
+    // $("#form-add-product").submit(function (event) {
+    //     event.preventDefault();
+    //     $('[id^=error-add-]').text("");
+    //
+    //     // Tạo đối tượng FormData để đóng gói dữ liệu form
+    //     let formData = new FormData();
+    //
+    //     formData.append("name", $("#add_name").val());
+    //     formData.append("price", $("#add_price").val());
+    //     formData.append("discount", $("#add_discount").val());
+    //     formData.append("quantity", $("#add_quantity").val());
+    //     formData.append("description", $("#add_description").val());
+    //     formData.append("categoryId", $("#classIdSelect").val());
+    //
+    //     // Lấy file ảnh từ input và thêm vào FormData
+    //     let imageInput = $("#add_image")[0];
+    //     if (imageInput.files.length > 0) {
+    //         formData.append("image", imageInput.files[0]);
+    //     }
+    //
+    //     debugger;
+    //
+    //     $.ajax({
+    //         headers: {
+    //             Accept: 'application/json',
+    //         },
+    //         type: 'POST',
+    //         data: formData,
+    //         processData: false,  // Không xử lý dữ liệu FormData
+    //         contentType: false,  // Không đặt kiểu dữ liệu
+    //         url: `https://medicine-w344.onrender.com/api/product`,
+    //         success: function () {
+    //             debugger;
+    //             $("#modal_add_product").modal("hide");
+    //             displayProducts();
+    //             $("input").val('');
+    //             $(".toast_create").toast("show");
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error(xhr.responseText);
+    //             console.error(status);
+    //             console.error(error);
+    //             debugger;
+    //         }
+    //     });
+    // });
+
 </script>
+
+<script>
+    $("#form-login").submit(function (event) {
+        event.preventDefault();
+        const usernameOrEmail = $("#username").val();
+        const password = $("#password").val();
+        // Add vào list
+        const user = {
+            email: usernameOrEmail,
+            password: password
+        };
+
+        $.ajax({
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            type: 'POST', // Sử dụng phương thức POST để gửi dữ liệu lên server.
+            data: JSON.stringify(user), // Chuyển đổi đối tượng 'user' thành chuỗi JSON để gửi lên server.
+            url: `https://medicine-w344.onrender.com/api/user/login`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                debugger
+                // if (data.id == 1) {
+                localStorage.setItem('roleList', data.name);
+
+                window.location.href = "index.html";
+                // } else {
+                //     window.location.href = "acessdined";
+                // }
+            },
+            error: function (error) {
+                if(error.status == 500) {
+                    $('#error-message').text('Thông tin đăng nhập chưa chính xác');
+                } else {
+                    $('#error-message').text('Hệ thống đang gặp lỗi, xin thử lại sau!');
+                }
+            }
+        });
+    });
+
+    function displayRolelist() {
+        if (localStorage.getItem("roleList")) {
+            $("#role").text(localStorage.getItem("roleList"));
+            debugger
+        }
+    }
+</script>
+
+<script>
+    function viewDetail(id) {
+        $.ajax({
+            type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
+            url: `https://medicine-w344.onrender.com/api/product?id=${id}`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                let product = data[0];
+                debugger
+                $("#image_detail").attr("src", `${product.image}`);
+                $("#id_detail").text(product.id);
+                $("#title_detail").text(product.name);
+                $("#price_detail").text(product.price + " VNĐ");
+                $("#discount_detail").text(product.price * 0.3 + " VNĐ");
+                $("#quantity_detail").text(product.quantity + " cái");
+                $("#category_detail").text("Thuốc tây");
+                $("#description_detail").text(product.description);
+            },
+            error: function (error) {
+            }
+        });
+    }
+</script>
+
+<script>
+    let idUpdate;
+    function comfirmUpdateProduct(id) {
+        idUpdate = id;
+        debugger
+        $('[id^=error-update-]').text("");
+        debugger
+        $.ajax({
+            type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
+            url: `https://medicine-w344.onrender.com/api/product?id=${id}`, // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                const product = data[0];
+                debugger
+                $("#update_title").val(product.name);
+                $("#update_price").val(product.price);
+                $("#update_image_raw").attr("src", `${product.image}`);
+                $("#update_discount").val(product.price * 0.7);
+                $("#update_quantity").val(product.quantity);
+                $("#update_description").val(product.description);
+            },
+            error: function (error) {
+            }
+        });
+
+        $("#btn-update").click(function (e) {
+            let formData = new FormData($("#form-update-product")[0]);
+            console.log($("#form-update-product"))
+            formData.append("categoryId", 1);
+            formData.append("id", idUpdate);
+            $.ajax({
+                url: 'http://localhost:8080/api/product',
+                type: 'POST',
+                data: formData,
+                processData: false,  // Important: Don't process the data
+                contentType: false,  // Important: Let jQuery handle the content type
+                success: function(result){
+                    window.location.href = "/home";
+                },
+
+                error: function(error){
+                    console.log("failed");
+                }
+            });
+
+        })
+
+
+        // $("#btn-update").click(function (e) {
+        //     let formData = new FormData($("#form-update-product")[0]);
+        //     console.log($("#form-update-product"))
+        //
+        //     // formData.append("categoryId", $("#classIdSelect").val());
+        //     $.ajax({
+        //         url: 'http://localhost:8080/api/product',
+        //         type: 'PUT',
+        //         data: formData,
+        //         processData: false,  // Important: Don't process the data
+        //         contentType: "multipart/form-data",  // Important: Let jQuery handle the content type
+        //         success: function (result) {
+        //             window.location.href = "/home";
+        //         },
+        //
+        //         error: function (error) {
+        //             console.log("failed");
+        //         }
+        //     });
+        //
+        // })
+    }
+</script>
+
+<script>
+    let idDelete;
+    function comfirmDeleteProduct(id, name) {
+        idDelete = id;
+        $("#nameProduct").text(name);
+    }
+
+    function deleteProduct() {
+        let product = {
+            id: idDelete,
+            ids: [idDelete]
+        }
+        $.ajax({
+            headers: {
+                Accept: 'application/json', // Đặt kiểu dữ liệu được chấp nhận từ server là JSON.
+                'Content-Type': 'application/json', // Đặt kiểu dữ liệu được gửi lên server là JSON.
+            },
+            type: 'DELETE',
+            data: JSON.stringify(product),
+            url: 'https://medicine-w344.onrender.com/api/product',
+            success: function () {
+                $("#modal_delete_product").modal("hide");
+                displayProducts();
+                $(".toast_delete").toast("show");
+            },
+            error: function (error) {
+                // Hàm này được gọi khi có lỗi trong quá trình gửi yêu cầu hoặc nhận phản hồi.
+                // Biến 'error' chứa thông tin về lỗi, bạn có thể xử lý lỗi ở đây hoặc thông báo cho người dùng.
+            }
+        });
+    }
+</script>
+
+<script>
+    function displayProducts() {
+        console.log("aaa");
+        debugger
+        $.ajax({
+            type: 'GET', // Sử dụng phương thức GET để yêu cầu dữ liệu từ server.
+            url: "https://medicine-w344.onrender.com/api/product", // Đây là địa chỉ của API hoặc trang web bạn muốn tương tác.
+            success: function (data) {
+                console.log(data)
+                let products = data;
+                let tableContent = ``;
+                debugger
+                products.forEach((product, index) => {
+                    tableContent += `<tr><th scope="row">${index + 1}</th>
+    <td>${product.name}</td>
+    <td>${product.price}</td>
+    <td>${product.quantity}</td>
+    <td><img src="${product.image}" width="100" height="100"></td>
+    <td>Thuốc tây</td>
+    <td>
+        <button type="button" onclick="comfirmUpdateProduct(${product.id})" data-bs-toggle="modal" data-bs-target="#modal_update_product" class="btn btn-info">Chỉnh sửa</button>
+        <button type="button" onclick="viewDetail(${product.id})" data-bs-toggle="modal" data-bs-target="#modal_detail_product" class="btn btn-warning">Chi tiết</button>
+        <button type="button" onclick="comfirmDeleteProduct(${product.id}, '${product.name}')" data-bs-toggle="modal" data-bs-target="#modal_delete_product" class="btn btn-danger" >Xóa</button>
+    </td> </tr>`
+                });
+                $("#productList_content").html(tableContent);
+            },
+            error: function (error) {
+// Hàm này được gọi khi có lỗi trong quá trình gửi yêu cầu hoặc nhận phản hồi.
+// Biến 'error' chứa thông tin về lỗi, bạn có thể xử lý lỗi ở đây hoặc thông báo cho người dùng.
+            }
+        });
+    }
+</script>
+
+
+
+
 </body>
 
 </html>
