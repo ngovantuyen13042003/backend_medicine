@@ -12,7 +12,7 @@ import lombok.Setter;
 public class ProductDTO {
     private Integer id;
     private String name;
-    private BigDecimal price;
+    private Integer price;
     private String description;
     private float vote;
     private String image;

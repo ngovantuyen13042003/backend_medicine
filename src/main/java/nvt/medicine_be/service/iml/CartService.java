@@ -43,7 +43,6 @@ public class CartService implements nvt.medicine_be.service.CartService {
         Cart cartOld = cartRepository.findByIdUserAndIdProduct(cartDTO.getIdUser(), cartDTO.getIdProduct());
         if(cartOld!=null) {
             cartOld.setQuantity((short)(cartOld.getQuantity()+1));
-            cartOld.setPrice(cartOld.getPrice().add(cartOld.getPrice()));
             return modelMapper.map(cartRepository.save(cartOld), CartDTO.class);
         }else {
             Cart cart =  new Cart();
@@ -65,7 +64,6 @@ public class CartService implements nvt.medicine_be.service.CartService {
         Product product = productRepository.findById(idProduct).get();
         Cart cartOld = cartRepository.findByIdUserAndIdProduct(idUser, idProduct);
         cartOld.setQuantity(quantity);
-        cartOld.setPrice(product.getPrice().multiply(BigDecimal.valueOf(quantity)));
         cartRepository.save(cartOld);
     }
     @Override

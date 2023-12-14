@@ -22,7 +22,7 @@ public class Cart {
     @Column
     private String name;
     @Column
-    private BigDecimal price;
+    private Integer price;
     @Column
     private short quantity;
     @Column
@@ -32,5 +32,5 @@ public class Cart {
     @Column
     private String imgurl;
     @Column
-    private BigDecimal totalPrice;
+    private Integer totalPrice;
 }
